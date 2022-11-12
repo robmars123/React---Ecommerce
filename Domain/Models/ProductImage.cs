@@ -12,11 +12,16 @@ namespace Domain.Models
     {
         [Key]
         public int Image_Id { get; set; }
-        
-        public int Product_Id { get; set; }
         public byte[] Image { get; set; }
         [NotMapped]
-        public string ConvertedProductImage { get; set; }
+        public string ConvertedProductImage 
+        {
+            get {
+                string imreBase64Data = Convert.ToBase64String(Image);
+                return string.Format("data:image/png;base64,{0}", imreBase64Data);
+            }
+            set { }
+        }
 
     }
 }

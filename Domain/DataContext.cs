@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Net;
+using System.Web.Http.OData.Builder;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,16 +24,16 @@ namespace Domain
         public virtual DbSet<CartItem> CartItems { get; set; }
         public virtual DbSet<Brand> Brands { get; set; }
 
-        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        //{
-        //    base.OnModelCreating(modelBuilder);
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            // Add the shadow property to the model
+            // Use the shadow property as a foreign key
 
-        //    modelBuilder.Entity<Product>()
-        //        .HasKey(k => k.Product_Id);
 
-        //    modelBuilder.Entity<Product>()
-        //        .Property(b => b.Product_Id)
-        //        .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-        //}
+            base.OnModelCreating(modelBuilder);
+        }
+
+
+
     }
 }

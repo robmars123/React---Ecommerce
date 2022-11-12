@@ -39,6 +39,12 @@ namespace React___Ecommerce.Controllers
                 data.UseSqlServer(_config.GetConnectionString("DefaultConnection"));
             });
 
+            services.AddCors(opt => {
+                opt.AddPolicy("CorsPolicy", policy =>{
+                    policy.AllowAnyMethod().AllowAnyHeader().WithOrigins("http://localhost:3000");
+                });
+            });
+
             //services.AddScoped<AllServices>(); //converted to groups
             services.AddMyDependencyGroup();
         }
@@ -53,9 +59,11 @@ namespace React___Ecommerce.Controllers
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPIv5 v1"));
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors("CorsPolicy");
 
             app.UseAuthorization();
 
